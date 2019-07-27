@@ -5,7 +5,14 @@ def add(x, y):
     """
     return ADouble(x.val + y.val, x.der + y.der)
 
-    
+def sub(x, y):
+    """
+    x: Adouble instance
+    y: Adouble instance
+    """
+    return ADouble(x.val - y.val, x.der - y.der)
+
+
 class ADouble(object):
     """
     An Adouble instance store a variable value and its derivatives. The basic 
@@ -30,3 +37,18 @@ class ADouble(object):
         else:
             y = ADouble(y,0)
             return y + self
+
+
+    def __sub__(self, y):
+        if type(y) == type(self):
+            return sub(self, y)
+        else:
+            y = ADouble(y,0)
+            return self - y
+
+    def __rsub__(self, y):
+        if type(y) == type(self):
+            return sub(y, self)
+        else:
+            y = ADouble(y, 0)
+            return y - self
