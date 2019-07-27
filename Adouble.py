@@ -1,3 +1,11 @@
+def add(x, y):
+    """
+    x: Adouble instance
+    y: Adouble instance
+    """
+    return ADouble(x.val + y.val, x.der + y.der)
+
+    
 class ADouble(object):
     """
     An Adouble instance store a variable value and its derivatives. The basic 
@@ -7,3 +15,18 @@ class ADouble(object):
     def __init__(self, value = 1, derivate = 0):
         self.val = float(value)
         self.der = float(derivate)
+
+
+    def __add__(self, y):
+        if type(y) == type(self):
+            return add(self, y)
+        else:
+            y = ADouble(y,0)
+            return self + y
+
+    def __radd__(self, y):
+        if type(y) == type(self):
+            return add(y, self)
+        else:
+            y = ADouble(y,0)
+            return y + self
